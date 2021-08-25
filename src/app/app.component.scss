@@ -1,0 +1,9 @@
+.navbar-nav {
+  flex-direction: row !important;
+  li {
+    a{
+      padding-right: .5rem !important;
+      padding-left: .5rem !important;
+    }
+  }
+}

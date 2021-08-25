@@ -1,0 +1,108 @@
+<!--<table class="table table-striped">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">first name-->
+<!--    </th>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">last name-->
+<!--    </th>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">pn-->
+<!--    </th>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">email-->
+<!--    </th>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">phone-->
+<!--    </th>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">country-->
+<!--    </th>-->
+<!--    <th scope="col"-->
+<!--        class="text-uppercase">actions-->
+<!--    </th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngIf="!users.length">-->
+<!--    <td colspan="7">No users</td>-->
+<!--  </tr>-->
+<!--  <ng-container *ngIf="users?.length">-->
+<!--    <tr *ngFor="let user of users; trackBy: trackBy">-->
+<!--      <td>{{user?.firstName}}</td>-->
+<!--      <td>{{user?.lastName}}</td>-->
+<!--      <td>{{user?.pn}}</td>-->
+<!--      <td>{{user?.email}}</td>-->
+<!--      <td>{{user?.phone || '-'}}</td>-->
+<!--      <td>{{user?.country}}</td>-->
+<!--      <td>-->
+<!--        <a [routerLink]="['/users/edit', user?.id]">-->
+<!--          <i class="fas fa-edit"-->
+<!--             title="edit"></i>-->
+<!--        </a>-->
+<!--        <a [routerLink]="['/users/posts', user?.id]">-->
+<!--          <i class="fas fa-list"-->
+<!--             title="user posts"></i>-->
+<!--        </a>-->
+<!--        <a tabindex=""-->
+<!--           (click)="deleteUser(user.id)">-->
+<!--          <i class="fas fa-trash-alt"-->
+<!--             title="delete"></i>-->
+<!--        </a>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--  </ng-container>-->
+<!--  </tbody>-->
+<!--</table>-->
+
+
+<h1 class="text-center">users</h1>
+
+<div style="display: flex; justify-content: space-between;">
+  <div class="form-group">
+    <label for="filter">Filter:</label>
+    <input type="text"
+           class="form-control"
+           id="filter"
+      (keyup)="filter($event)">
+  </div>
+  <a type="button"
+     class="btn btn-secondary add-new"
+     routerLink="/users/add">add new customer</a>
+</div>
+
+<div class="row card-container">
+  <div class="col-sm-6 col-md-4 col-lg-3"
+       *ngFor="let user of filteredUsers; trackBy: trackBy">
+    <div class="card">
+      <div class="card-header">
+        <a class="edit"
+           [routerLink]="['/users/edit', user?.id]">
+          {{user?.firstName | titlecase}} {{ user?.lastName | titlecase}}<i class="fas fa-edit"></i>
+        </a>
+        <a (click)="deleteUser(user.id)">
+          <i title="delete"
+             class="fas fa-trash-alt"></i>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="pull-left card-body-left">
+            <a [routerLink]="['/users/edit', user?.id]">
+              <img src="assets/img/{{user.gender}}.png"
+                   class="card-image"/>
+            </a>
+          </div>
+          <div class="pull-left card-body-right">
+            <div class="card-body-content">{{user.country | uppercase}}<br>{{user.email}}</div>
+            <a [routerLink]="['/users/posts', user?.id]">View Posts</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!users.length">
+    No Records Found
+  </div>
+</div>
